@@ -21,13 +21,13 @@ if (fs.existsSync(dataFilePath)) {
 
 // Endpoint to receive location data
 app.post('/api/send-location', (req, res) => {
-  const { latitude, longitude } = req.body;
+  const { latitude, longitude, message } = req.body;
 
-  if (!latitude || !longitude) {
+  if (!latitude || !longitude || !message) {
     return res.status(400).json({ error: 'Invalid location data' });
   }
 
-  const newLocation = { latitude, longitude };
+  const newLocation = { latitude, longitude, message };
   locations.push(newLocation);
 
   // Save locations to the JSON file
@@ -44,5 +44,5 @@ app.get('/api/get-locations', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://192.168.254.113:${PORT}`);
 });
