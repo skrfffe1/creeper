@@ -18,15 +18,32 @@ export default function App() {
     })();
   }, []);
 
-  const sendLocation = () => {
-    // Send the location data to your server or do something with it
+  const sendLocation = async () => {
     if (location) {
-      console.log('Sending location:', location.coords);
-      // Add logic to send location data to your server
+      const { latitude, longitude } = location.coords;
+      
+      try {
+        const response = await fetch('http://192.168.254.113:3000/api/send-location', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ latitude, longitude }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network request failed');
+        }
+      
+        const data = await response.json();
+        console.log(data.message);
+      } catch (error) {
+        console.error('Error sending location:', error.message);
+      }
     } else {
       console.log('Location not available yet');
     }
-  };
+  };  
 
   return (
     <View style={styles.container}>
