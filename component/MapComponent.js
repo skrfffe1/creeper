@@ -22,10 +22,16 @@ const MapComponent = () => {
 
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} initialRegion={{ latitude: 0, longitude: 0, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}>
+      <MapView style={styles.map} initialRegion={{ 
+        latitude: 11.219115930422078,
+        longitude: 124.99908929956703, 
+        latitudeDelta: 0.09, 
+        longitudeDelta: 0.09 }}>
+
         {locations.map((location, index) => (
           <Marker key={index} coordinate={{ latitude: location.latitude, longitude: location.longitude }} title={`Location ${index + 1}`} />
         ))}
+
       </MapView>
     </View>
   );
