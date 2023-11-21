@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Animated } from 'react-native';
 import * as Location from 'expo-location';
 import MapComponent from './component/MapComponent';
 
 export default function App() {
   const [location, setLocation] = useState(null);
   const [showMap, setShowMap] = useState(false);
+  const [toastText, setToastText] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -36,6 +37,9 @@ export default function App() {
         const data = await response.json();
         console.log(data.message);
 
+         // Set the toast text
+         setToastText(`Latitude: ${latitude}, Longitude: ${longitude}`);
+
         // After sending location, show the map
         setShowMap(true);
       } catch (error) {
@@ -46,10 +50,36 @@ export default function App() {
     }
   };
 
+  const fadeIn = new Animated.Value(0);
+
+  const showToast = () => {
+    Animated.timing(fadeIn, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: false,
+    }).start(() => {
+      setTimeout(() => {
+        hideToast();
+      }, 2000);
+    });
+  };
+
+  const hideToast = () => {
+    Animated.timing(fadeIn, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
+  };
+
   return (
-    <View style={styles.container}>
+    <>
+      <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={sendLocation}>
+      <TouchableOpacity style={styles.button} onPress={() => {
+          sendLocation();
+          showToast();
+        }}>
           <Text style={styles.buttonText}>Send Location</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => setShowMap(!showMap)}>
@@ -61,7 +91,12 @@ export default function App() {
           <MapComponent />
         </View>
       )}
+      <Animated.View style={[styles.toast, { opacity: fadeIn }]}>
+        <Text style={styles.toastText}>{toastText}</Text>
+      </Animated.View>
     </View>
+    </>
+    
   );
 }
 
@@ -76,21 +111,32 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: '50%',
+    height: '25%',
   },
   button: {
-    backgroundColor: '#4CAF50',
-    padding: 20,
+    backgroundColor: '#1E293B',
+    padding: 15,
     margin: 10,
-    borderRadius: 10,
+    borderRadius: 5,
   },
   buttonText: {
-    color: 'white',
+    color: 'whitesmoke',
     fontWeight: 'bold',
     fontSize: 18,
   },
   mapContainer: {
     flex: 1,
     width: '100%',
+  },
+  toast: {
+    position: 'absolute',
+    bottom: 20,
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 8,
+  },
+  toastText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
