@@ -24,6 +24,7 @@ export default function App() {
   const sendLocation = async () => {
     if (location) {
       const { latitude, longitude } = location.coords;
+      const distressMessage = 'Help Im here wounded!';
 
       try {
         const response = await fetch('http://192.168.254.113:3000/api/send-location', {
@@ -31,19 +32,19 @@ export default function App() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ latitude, longitude }),
+          body: JSON.stringify({ latitude, longitude, message: distressMessage }),
         });
 
         const data = await response.json();
         console.log(data.message);
 
          // Set the toast text
-         setToastText(`Latitude: ${latitude}, Longitude: ${longitude}`);
+         setToastText(`Latitude: ${latitude}, Longitude: ${longitude}, Message: ${distressMessage}`);
 
         // After sending location, show the map
         setShowMap(true);
       } catch (error) {
-        console.error('Error sending location:', error.message);
+        console.error('Error sending location and distress message:', error.message);
       }
     } else {
       console.log('Location not available yet');
