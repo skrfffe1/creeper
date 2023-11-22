@@ -8,10 +8,6 @@ App name: FindMe
 A simple app that has a function to locate people or to find each other in the middle of accidents or disaster
 as long as internet-connectivity is available, we can increase the chance of
 saving them.
-
-Disclaimer:
-I am not a pro, I just started learning some stuffs few weeks ago and use this framework 2days ago.
-I dont have foundation, I am taking this event as an opportunity to stick with mobile development. 
             
 ```
 ### how to run?
