@@ -11,8 +11,15 @@ saving them.
 -npm install
 -npm run start
 ```
-### run mock local server
+### run local mock server
 ```
 -cd DisasterLocationServer
+-npm install
 -npx nodemon server.js
+```
+```
+modify api endpoints from this from this files:
+  component/MapComponent.js
+  DisasterLocationServer/server.js
+  /App.js
 ```
