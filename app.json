@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "creeper",
-    "slug": "creeper",
+    "name": "FindMe",
+    "slug": "FindMe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
