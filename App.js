@@ -40,7 +40,7 @@ export default function App() {
         console.log(data.message);
 
          // Set the toast text
-         setToastText(`Latitude: ${latitude}, Longitude: ${longitude}, Message: ${distressMessage}`);
+         setToastText(`Latitude: ${latitude}, Longitude: ${longitude}`);
 
         // After sending location, show the map
         setShowMap(true);
@@ -70,12 +70,16 @@ export default function App() {
     });
   };
 
-  const hideToast = () => {
+  const hideToast = (callback) => {
     Animated.timing(fadeIn, {
       toValue: 0,
       duration: 500,
       useNativeDriver: false,
-    }).start();
+    }).start(() => {
+      if(callback) {
+        callback();
+      }
+    });
   };
 
   return (
@@ -87,7 +91,7 @@ export default function App() {
           <DistressInput onDistressMessageChange={handleDistressMessageChange} />
           <TouchableOpacity style={styles.button} onPress={() => {
             sendLocation();
-            showToast();
+            hideToast();
           }}>
           <Text style={styles.buttonText}>Send Location</Text>
           </TouchableOpacity>
