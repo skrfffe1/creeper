@@ -3,8 +3,12 @@ This project is intended for notJustDev Hackathon event 2023.
 
 ```
 An app to locate people or to find each other in the middle of accidents or disaster
-as long as signal is available, we can increase the chance of
+as long as internet-connectivity is available, we can increase the chance of
 saving them.
+
+Disclaimer: I am not a pro, I just started learning some stuffs few weeks ago and use this framework 2days ago.
+            I dont have foundation, I am taking this event as an opportunity to stick with mobile development. 
+            
 ```
 ### how to run?
 ```
@@ -22,4 +26,7 @@ modify api endpoints from these files:
   component/MapComponent.js
   DisasterLocationServer/server.js
   /App.js
+
+dynamic dummy data
+  DisasterLocationSever/locations.json - we can provide data manually or in app simple functionality
 ```
