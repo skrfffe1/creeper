@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Animated } from 'react-native';
 import * as Location from 'expo-location';
 import MapComponent from './component/MapComponent';
+import DistressInput from './component/DistressInput';
 
 export default function App() {
   const [location, setLocation] = useState(null);
   const [showMap, setShowMap] = useState(false);
   const [toastText, setToastText] = useState('');
+  const [distressMessage, setDistressMessage] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -24,7 +26,6 @@ export default function App() {
   const sendLocation = async () => {
     if (location) {
       const { latitude, longitude } = location.coords;
-      const distressMessage = 'Help Im here wounded!';
 
       try {
         const response = await fetch('http://192.168.254.113:3000/api/send-location', {
@@ -49,6 +50,10 @@ export default function App() {
     } else {
       console.log('Location not available yet');
     }
+  };
+
+  const handleDistressMessageChange = (message) => {
+    setDistressMessage(message);
   };
 
   const fadeIn = new Animated.Value(0);
@@ -77,12 +82,19 @@ export default function App() {
     <>
       <View style={styles.container}>
       <View style={styles.buttonContainer}>
-      <TouchableOpacity style={styles.button} onPress={() => {
-          sendLocation();
-          showToast();
-        }}>
+      {!showMap ? (
+        <>
+          <DistressInput onDistressMessageChange={handleDistressMessageChange} />
+          <TouchableOpacity style={styles.button} onPress={() => {
+            sendLocation();
+            showToast();
+          }}>
           <Text style={styles.buttonText}>Send Location</Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </>
+      ) : (
+       <Text></Text>
+      )}
         <TouchableOpacity style={styles.button} onPress={() => setShowMap(!showMap)}>
           <Text style={styles.buttonText}>{showMap ? 'Hide Map' : 'Show Map'}</Text>
         </TouchableOpacity>
