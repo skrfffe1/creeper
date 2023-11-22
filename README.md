@@ -18,7 +18,7 @@ saving them.
 -npx nodemon server.js
 ```
 ```
-modify api endpoints from this from this files:
+modify api endpoints from these files:
   component/MapComponent.js
   DisasterLocationServer/server.js
   /App.js
