@@ -120,7 +120,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FEF08A',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -143,7 +143,9 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
-    width: '100%',
+    width: '95%',
+    padding: 5,
+    bottom: 5,
   },
   toast: {
     position: 'absolute',
